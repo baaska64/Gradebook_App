@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade Ledger</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <div id="autosave-status">Saved to ledger</div>
+    <div id="sync-status" class="sync-status synced">Cloud Synced</div>
+
+    <header class="dashboard">
+        <div class="dashboard-header">
+            <div>
+                <h1>Grade Ledger</h1>
+                <p class="tagline">Units &middot; weights &middot; equivalents</p>
+            </div>
+            <div id="auth-controls">
+                <span id="user-email"></span>
+                <button id="btn-login" class="btn-primary">Login / Signup</button>
+                <button id="btn-delete-account" class="btn-danger" style="display: none;">Delete Account</button>
+                <button id="btn-logout" class="btn-danger" style="display: none;">Logout</button>
+                <button id="btn-reset" class="btn-danger">Reset</button>
+            </div>
+        </div>
+        <div class="gwa-summary" id="gwa-summary"></div>
+        
+        <div id="auth-modal" class="modal" style="display:none;">
+            <div class="modal-content">
+                <h2 id="modal-title">Access Ledger</h2>
+                <input type="email" id="auth-email" class="field field--block" placeholder="Email address">
+                <input type="password" id="auth-password" class="field field--block" placeholder="Password">
+                <div class="modal-actions">
+                    <button id="btn-submit-login" class="btn-primary">Login</button>
+                    <button id="btn-submit-signup" class="btn-primary">Sign Up</button>
+                    <button onclick="toggleModal(false)">Close</button>
+                </div>
+                <p id="auth-message"></p>
+            </div>
+        </div>
+
+        <div id="confirm-modal" class="modal" style="display:none;">
+            <div class="modal-content" style="width: 320px; text-align: center;">
+                <h2 style="font-size: 1.3rem; margin-bottom: 0.5rem; color: var(--red);">Confirm Deletion</h2>
+                <p id="confirm-message" style="margin-bottom: 1.5rem; font-size: 0.9rem; color: var(--ink-soft);"></p>
+                <div class="modal-actions" style="justify-content: center; gap: 1rem;">
+                    <button id="btn-confirm-cancel" style="background: transparent; border: 1px solid var(--ink-soft);">Cancel</button>
+                    <button id="btn-confirm-ok" class="btn-danger">Delete Record</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="ledger-container">
+        <nav class="folder-tabs" id="year-tabs"></nav>
+        <nav class="folder-tabs sub-tabs" id="sem-tabs"></nav>
+
+        <div class="ledger-paper" id="ledger-content"></div>
+    </main>
+
+    <script>
+        window.ENV_SUPABASE_URL = null;
+        window.ENV_SUPABASE_KEY = null;
+    </script>
+    <script src="app.js"></script>
+</body>
+</html>
