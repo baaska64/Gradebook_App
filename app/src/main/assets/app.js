@@ -41,23 +41,36 @@ if (themeBtn) {
 }
 // ------------------------
 
-function updateSyncUI(state) {
-    const el = document.getElementById('sync-status');
-    el.className = 'sync-status ' + state;
-    if (state === 'synced') el.textContent = 'Cloud Synced';
-    if (state === 'offline') el.textContent = 'Offline (Saved Locally)';
-    if (state === 'pending') el.textContent = 'Syncing...';
+let syncToastTimeout;
+function updateSyncUI(state, showToast = false) {
+    const dot = document.getElementById('sync-dot');
+    const toast = document.getElementById('sync-status');
+    
+    if (dot) dot.className = 'sync-dot ' + state;
+    if (toast) toast.className = 'sync-status ' + state;
+    
+    if (state === 'synced') toast.textContent = 'Cloud Synced';
+    if (state === 'offline') toast.textContent = 'Offline Mode';
+    if (state === 'pending') toast.textContent = 'Syncing...';
+
+    if (showToast && toast) {
+        toast.classList.add('show');
+        clearTimeout(syncToastTimeout);
+        syncToastTimeout = setTimeout(() => {
+            toast.classList.remove('show');
+        }, 2500);
+    }
 }
 
 window.addEventListener('online', () => {
     isOnline = true;
     if (hasPendingSync) Storage.syncToCloud();
-    else updateSyncUI('synced');
+    else updateSyncUI('synced', true);
 });
 
 window.addEventListener('offline', () => {
     isOnline = false;
-    updateSyncUI('offline');
+    updateSyncUI('offline', true);
 });
 
 const Storage = {
@@ -92,11 +105,11 @@ const Storage = {
         showAutosave();
         if (currentUser) {
             if (isOnline) {
-                updateSyncUI('pending');
+                updateSyncUI('pending', false);
                 await Storage.syncToCloud(data);
             } else {
                 hasPendingSync = true;
-                updateSyncUI('offline');
+                updateSyncUI('offline', false);
             }
         }
     },
@@ -109,10 +122,10 @@ const Storage = {
                 .upsert({ id: currentUser.id, ledger_data: dataToSync });
             if (error) throw error;
             hasPendingSync = false;
-            updateSyncUI('synced');
+            updateSyncUI('synced', true);
         } catch (err) {
             hasPendingSync = true;
-            updateSyncUI('offline');
+            updateSyncUI('offline', true);
         }
     },
     clearRecords: async () => {
