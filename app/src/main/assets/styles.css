@@ -1,24 +1,20 @@
-/* ==========================================================
-   Grade Ledger - Modern UI with Dark Mode & High Contrast
-   ========================================================== */
-
 :root {
     /* Neutral surface palette - Light Mode */
-    --bg: #f5f5f7;          
-    --surface: #ffffff;     
-    --surface-2: #f2f2f7;   
-    --surface-3: #e5e5ea;   
-    
+    --bg: #f5f5f7;
+    --surface: #ffffff;
+    --surface-2: #f2f2f7;
+    --surface-3: #e5e5ea;
+
     --border: rgba(0, 0, 0, 0.1);
     --border-strong: rgba(0, 0, 0, 0.2);
     --divider: rgba(0, 0, 0, 0.08);
-    
+
     /* Text - Maximum Legibility for Light Mode */
-    --text: #1d1d1f;        
-    --text-muted: #86868b;  
-    --text-subtle: #a1a1a6; 
-    --heading-color: #1d1d1f; 
-    
+    --text: #1d1d1f;
+    --text-muted: #86868b;
+    --text-subtle: #a1a1a6;
+    --heading-color: #1d1d1f;
+
     /* Brand + semantic */
     --primary: #0071e3;
     --primary-hover: #0077ed;
@@ -31,12 +27,12 @@
     --danger-hover: #ff453a;
     --danger-soft: rgba(255, 59, 48, 0.1);
     --accent: #5e5ce6;
-    
+
     /* Type */
     --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     --font-data: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     --font-ui: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    
+
     /* Elevation */
     --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
     --shadow-sm: 0 4px 14px rgba(0, 0, 0, 0.05);
@@ -52,36 +48,36 @@
    Dark Mode & Neon Theme
    ========================================================== */
 [data-theme="dark"] {
-    --bg: #000000;          
-    --surface: #1c1c1e;     
-    --surface-2: #2c2c2e;   
-    --surface-3: #3a3a3c;   
-    
-    --border: rgba(255, 255, 255, 0.15);      
+    --bg: #000000;
+    --surface: #1c1c1e;
+    --surface-2: #2c2c2e;
+    --surface-3: #3a3a3c;
+
+    --border: rgba(255, 255, 255, 0.15);
     --border-strong: rgba(255, 255, 255, 0.25);
     --divider: rgba(255, 255, 255, 0.1);
-    
+
     /* High Contrast Text */
-    --text: #f5f5f7;        
-    --text-muted: #a1a1a6;  
+    --text: #f5f5f7;
+    --text-muted: #a1a1a6;
     --text-subtle: #86868b;
     --heading-color: #ffffff;
-    
+
     /* Neon accents */
-    --primary: #2997ff; 
+    --primary: #2997ff;
     --primary-hover: #3ca3ff;
     --primary-soft: rgba(41, 151, 255, 0.15);
-    
-    --success: #30d158; 
+
+    --success: #30d158;
     --success-soft: rgba(48, 209, 88, 0.15);
-    
-    --warning: #ff9f0a; 
+
+    --warning: #ff9f0a;
     --warning-soft: rgba(255, 159, 10, 0.15);
-    
-    --danger: #ff453a; 
+
+    --danger: #ff453a;
     --danger-hover: #ff5247;
     --danger-soft: rgba(255, 69, 58, 0.15);
-    
+
     /* Crisp shadows with a subtle white inner-ring */
     --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.05);
     --shadow-sm: 0 4px 14px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(255, 255, 255, 0.05);
@@ -89,8 +85,8 @@
 }
 
 /* Smooth transition for theme swapping */
-body, .dashboard, .dashboard-header, .gwa-card, .subject-block, 
-.period-block, .sem-chart, .period-summary, .modal-content, .field, 
+body, .dashboard, .dashboard-header, .gwa-card, .subject-block,
+.period-block, .sem-chart, .period-summary, .modal-content, .field,
 .folder-tabs, .sub-tabs, .tab, .item-row {
     transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
@@ -207,7 +203,6 @@ input[type=number] {
 #btn-menu-toggle {
     display: inline-flex;
     transition: transform 0.3s ease;
-    margin-left: auto;
     flex-shrink: 0;
 }
 #btn-menu-toggle.active {
@@ -1068,29 +1063,17 @@ button:hover {
 }
 
 /* ---------- Sync indicator ---------- */
-#sync-status {
-    position: fixed;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-family: var(--font-ui);
-    font-size: 12px;
-    font-weight: 500;
-    padding: 8px 16px;
-    border-radius: 999px;
-    box-shadow: var(--shadow-md);
-    z-index: 1000;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    border: 1px solid var(--border);
-    background: var(--surface);
-    color: var(--text);
+.sync-indicator {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--text-muted);
+    transition: background-color 0.2s ease;
 }
-#sync-status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; opacity: 0.9; }
-.sync-status.synced { color: var(--success); }
-.sync-status.offline { color: var(--text-muted); }
-.sync-status.pending { color: var(--warning); }
+.sync-indicator.synced { background-color: var(--success); }
+.sync-indicator.offline { background-color: var(--text-muted); }
+.sync-indicator.pending { background-color: var(--warning); }
 
 /* ==========================================================
    Donut Rings, Charts & Visualizations
@@ -1320,18 +1303,18 @@ button:hover {
     .tab { padding: 6px 10px; font-size: 12px; flex-shrink: 0; white-space: nowrap; }
     .ledger-paper { padding: 20px 16px 28px; }
     .subject-block { padding: 16px 14px; }
-    
+
     .header-row { padding-right: 0; gap: 8px; }
     .ledger-paper h2, .ledger-paper h3, .ledger-paper h4 { min-width: 100px; }
     .header-row .btn-delete, .header-row .btn-duplicate { position: static; }
-    
+
     .weight-warning { flex: 1 1 100%; margin-left: 0; margin-top: 4px; }
     .period-grade-inline { flex: 1 1 100%; margin-left: 0; margin-top: 4px; }
-    
+
     .subject-meta { padding-top: 4px; row-gap: 6px; }
     .component-block { padding: 12px; }
     .items-container { margin-left: 0; padding-left: 8px; }
-    
+
     .item-row { flex-wrap: wrap; height: auto; padding: 8px 10px; justify-content: flex-start; }
     .item-row .badge-item { flex: 1 1 100%; margin-bottom: 8px; text-align: left; }
     .subitems-container { margin-left: 12px; padding-left: 8px; }
